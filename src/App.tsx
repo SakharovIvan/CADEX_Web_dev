@@ -1,24 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
+import { Col, Row } from "react-bootstrap";
+import _interface from "./components/interface";
+import MyScene from "./components/Scene";
+import { MyGroupProvider } from "./Context";
 
 function App() {
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App info">
+      <MyGroupProvider>    
+        <Row >
+        <Col sm={4} style={{position:'relative'}}>
+          <_interface></_interface>
+        </Col>
+        <Col sm={8} className="TreeScreen">
+          <MyScene></MyScene>
+        </Col>
+      </Row>
+      </MyGroupProvider>
+
     </div>
   );
 }

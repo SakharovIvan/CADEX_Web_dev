@@ -24,6 +24,15 @@
   color: white;
 }
 
+#info {
+  position: absolute;
+  top: 10px;
+  width: 100%;
+  text-align: center;
+  z-index: 100;
+  display:block;
+}
+
 .App-link {
   color: #61dafb;
 }
@@ -35,4 +44,15 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+div
+.col-sm-4{
+    height: 100vh;
+
+}
+
+div
+.col-sm-8{
+    height: 100vh;
 }
