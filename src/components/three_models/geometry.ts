@@ -9,14 +9,9 @@ export default function MyGeometry(group: MyGroup) {
   const normals = [];
   const uvs = [];
   const colors = [];
-  const color1 = [Math.random(), Math.random(), Math.random()];
-  const color2 = [Math.random(), Math.random(), Math.random()];
-  const color3 = [Math.random(), Math.random(), Math.random()];
-  const color4 = [Math.random(), Math.random(), Math.random()];
-  const color5 = [Math.random(), Math.random(), Math.random()];
-  const color6 = [Math.random(), Math.random(), Math.random()];
+
   let i = 0;
-  const randomColors = [color1, color2, color3, color4, color5, color6];
+  const randomColors = group.color;
   switch (group.type) {
     case GROUPTYPES.BOX:
       for (const vertex of MyCube(size.Length, size.Width, size.Height)) {
@@ -68,11 +63,11 @@ export default function MyGeometry(group: MyGroup) {
     new THREE.BufferAttribute(new Float32Array(colors), colorNumComponents)
   );
   const material = new THREE.MeshBasicMaterial({ vertexColors: true });
-  // const material = new THREE.LineBasicMaterial({
-  //   color: group.color
-  // });
 
-  const cube = new THREE.Mesh(geometry, material);
-  cube.position.set(position.x, position.y, position.z);
-  return cube;
+
+
+  const mesh = new THREE.Mesh(geometry, material);
+  mesh.position.set(position.x, position.y, position.z);
+
+  return {mesh,id:group.id};
 }
