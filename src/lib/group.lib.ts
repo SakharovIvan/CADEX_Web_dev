@@ -21,7 +21,7 @@ export interface MyGroupForm {
   color: ColorArray
 }
 
-type ColorArray =[
+export type ColorArray =[
     [number, number, number],
     [number, number, number],
     [number, number, number],
@@ -31,7 +31,7 @@ type ColorArray =[
   ];
 export interface MyGroupContextValue {
   groups: MyGroup[];
-  addGroup: ({ userNumber, type, size, color }: MyGroupForm) => void;
+  addGroup: (groupArray: MyGroupForm[]) => void;
   toggle:number|null;
   toggleGroup: (id: number|null) => void;
   clearGroups: () => void;

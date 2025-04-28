@@ -14,7 +14,7 @@ import { MyGroupContext } from "../Context";
 
 export default function MyScene() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { groups } = useContext(MyGroupContext);
+  const { groups,toggle } = useContext(MyGroupContext);
   const [cameraPos, setcamerPos] = useState({ x: 40, y: 40, z: 40 });
   useLayoutEffect(() => {
     const renderer = new WebGLRenderer({
@@ -41,15 +41,19 @@ export default function MyScene() {
     const scene = new Scene();
 
     renderer.setClearColor(0xffffff, 3);
-
+    let toggledgeometry:THREE.Mesh
     groups.forEach((el) => {
-      const cube = MyGeometry(el);
-      scene.add(cube);
+      const geometry = MyGeometry(el);
+      scene.add(geometry.mesh);
+      if(el.id===toggle){toggledgeometry=geometry.mesh}
     });
 
     renderer.setAnimationLoop(() => {
       const newCameraPos = camera.position;
       setcamerPos(newCameraPos);
+      toggledgeometry?.rotateX(0.01)
+      toggledgeometry?.rotateY(0.01)
+      toggledgeometry?.rotateZ(0.03)
       renderer.render(scene, camera);
     });
 
@@ -69,7 +73,7 @@ export default function MyScene() {
     return () => {
       threescreen.removeEventListener("resize", onResize);
     };
-  }, [groups]);
+  }, [groups,toggle]);
 
   return <canvas ref={canvasRef} />;
 }

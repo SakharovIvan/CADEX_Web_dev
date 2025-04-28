@@ -5,7 +5,7 @@ import { RandomCoordinates, RandomSize } from "./lib/Random";
 
 export const MyGroupContext = createContext<MyGroupContextValue>({
   groups: [],
-  addGroup: ({ type, size, color }: MyGroupForm) => {},
+  addGroup: (groupArray: MyGroupForm[]) => {},
   toggle: null,
   toggleGroup: (id: number | null) => {},
   clearGroups: () => {},
@@ -16,18 +16,17 @@ export const MyGroupProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [groups, setGroups] = useState<MyGroup[]>([]);
   const [toggle, setToggle] = useState<number | null>(null);
-  const addGroup = ({ userNumber, type, size, color }: MyGroupForm) => {
-    const id = groups.length + 1;
-    const position: Coordinates = RandomCoordinates(1, 15);
-    const newGroup: MyGroup = {
-      userNumber,
-      id,
-      color,
-      position,
-      type,
-      size,
-    };
-    setGroups([...groups, newGroup]);
+  const addGroup = (groupArray: MyGroupForm[]) => {
+    
+    const newgroupArray= groupArray.map((el)=>{
+      const id = groups.length +el.userNumber;
+      const position: Coordinates = RandomCoordinates(1, 15);
+      return {
+        ...el,id,position
+      }
+    })
+
+    setGroups([...groups, ...newgroupArray]);
   };
   
   const toggleGroup = (id: number | null) => {
